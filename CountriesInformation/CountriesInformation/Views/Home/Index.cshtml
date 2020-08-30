@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="form-group row">
+    <div class="col-4">
+        <input class="form-control" type="text" placeholder="Enter a country name" id="countryName" />
+        <input type="submit" value="Get Country Info" id="submitCountryName">
+    </div>
+
+    <div class="col-6" align="right">
+        <button class="btn btn-info" type="submit" id="countriesFromDb">Get Countries From DB</button>
+    </div>
+</div>
+<br />
+<div id="content"></div>
+
+
+@section scripts{
+    <script src='@Url.Content("~/js/site.js")'></script>
+}
