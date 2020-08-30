@@ -41,6 +41,9 @@ namespace CountriesInformation.Api.Services
 
         public void Add(CountryDto countryDto)
         {
+            if (countryDto == null)
+                throw new ArgumentException("There was not received country to save");
+
             var city = _cityRepository.GetByName(countryDto.Capital.Name);
             var region = _regionRepository.GetByName(countryDto.Region.Name);
             var countryFromDb = _countryRepository.GetByCode(countryDto.Code);
@@ -69,10 +72,10 @@ namespace CountriesInformation.Api.Services
         private void Update(CountryDto countryDto, Country countryFromDb)
         {
             countryFromDb.Area = countryDto.Area;
-            countryFromDb.Capital.Name = countryDto.Capital.Name ?? countryFromDb.Capital.Name;
+            countryFromDb.Capital.Name = countryDto.Capital.Name;
             countryFromDb.Code = countryDto.Code;
             countryFromDb.Population = countryDto.Population;
-            countryFromDb.Region.Name = countryDto.Region.Name ?? countryFromDb.Region.Name;
+            countryFromDb.Region.Name = countryDto.Region.Name;
 
             _countryRepository.Update(countryFromDb);
         }

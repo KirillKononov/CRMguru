@@ -8,13 +8,18 @@
                 }
             }, 500);
         })
-        .fail(document.getElementById("content").innerHTML = `There is no country with name ${$("#countryName").val()}`);
+        .fail(() => {
+            document.getElementById("content").innerHTML = `There is no country with name ${$("#countryName").val()}`;
+        });
 };
 
 function loadCountriesFromDb() {
     $.getJSON("/Home/GetAll",
         (data) => {
             displayCountriesFromDb(data);
+        })
+        .fail((error) => {
+            alert(`Exception code: ${error.responseJSON.ErrorCode}\nException message: ${error.responseJSON.ErrorMessage}`);
         });
 }
 
@@ -85,6 +90,9 @@ function saveCountryToDb(countriesToSave) {
         data: { countryViewModel: newCountry },
         success: (data) => {
             alert(`New country ${data.name} added to the database`);
+        },
+        error: (error) => {
+            alert(`Exception code: ${error.responseJSON.ErrorCode}\nException message: ${error.responseJSON.ErrorMessage}`);
         }
     });
 }
